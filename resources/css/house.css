@@ -1,0 +1,28 @@
+h1 {
+  color: black;
+}
+
+h4 {
+  color: black;
+  font-weight: normal;
+}
+
+a {
+  font-weight: bold;
+}
+
+a:link {
+  color: black;
+}
+
+a:hover {
+  color: #184093;
+}
+
+a:visited {
+  color: #900000;
+}
+
+a:active {
+  color: #00ffff;
+}
