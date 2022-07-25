@@ -1,2 +1,5 @@
 # Ignore hidden files
 .*
+
+# Ignore ~ files
+*~
