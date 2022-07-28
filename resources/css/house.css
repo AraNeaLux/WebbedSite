@@ -18,12 +18,18 @@ h4 {
   max-width: 700px;
   line-height: 1.5;
   font-weight: normal;
+  font-size: 17px;
 }
 
 p {
   color: black;
   max-width: 700px;
   line-heigth: 1.5;
+}
+
+ul {
+  list-style-type: none;
+  font-size: 19px
 }
 
 a {
