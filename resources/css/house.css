@@ -32,22 +32,40 @@ ul {
   font-size: 19px
 }
 
-a {
-  font-weight: bold;
+a.roomnav {
+  color: black;
+  border: 2px solid black;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
 }
 
-a:link {
+a.roomnav:visited{
   color: black;
 }
 
-a:hover {
+a.roomnav:hover{
   color: #0000ee;
 }
 
-a:visited {
+a.magic{
+  cursor: pointer;
+  font-weight: bold;
+}
+
+a.magic:link {
+  color: black;
+}
+
+a.magic:hover {
+  color: #0000ee;
+}
+
+a.magic:visited {
   color: #900000;
 }
 
-a:active {
+a.magic:active {
   color: #00ffff;
 }
