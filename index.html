@@ -1,18 +1,29 @@
 <!DOCTYPE html>
 <html>
-<head>
-<link href="./resources/css/index.css" type="text/css" rel="stylesheet">
-  <title></title>
-</head>
-<body>
-<h1>FirstName LastName</h1>
-<p>I'm learning to code on Codecademy! My goals include:</p>
-<ul>
-  <li>Learn to code</li>
-  <li>Start a company</li>
-  <li>Help the world</li>
-</ul>
-<p>This is one of my favorite websites: <a href="https://www.google.com/" target="_blank">Google</a></p>
+  <head>
+    <link href="./resources/css/index.css" type="text/css" rel="stylesheet">
+    <link href="./resources/css/navbar.css" type="text/css" rel="stylesheet">
+    <title>A Webbed Site</title>
+  </head>
+  <body>
+    <script src="navbar.js"></script>
+    <!-- Load an icon library to show a hamburger menu (bars) on small screens -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-</body>
+    <div class="topnav" id="myTopnav">
+      <a href="#home" class="active">Home</a>
+      <a href="house/welcome/0.html">About</a>
+      <a href="javascript:void(0);" class="icon" onclick="mobileScreenAdjust()">
+        <i class="fa fa-bars"></i>
+      </a>
+    </div> 
+    <h1>Obscuritea: Pt 0</h1>
+    <h4>How did you find me?</h4>
+    <div include-html="navbar.html"></div>
+    <!-- script src="include.js">
+      includeHTML();
+    </script-->
+    <p>Welcome to my website! Feel free to look around.</p>
+    <p>Say hi in my guestbook!</p>
+  </body>
 </html>
