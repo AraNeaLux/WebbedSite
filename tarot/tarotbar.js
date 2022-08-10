@@ -5,9 +5,13 @@ document.write('\
 \
     <link href="../resources/css/tarot.css" type="text/css" rel="stylesheet">\
     <div class="tarotnav" id="myTarotnav">\
-      <a href="0.html" class="active">Tarot</a>\
-      <a href="major/index.html">Major</a>\
-      <a href="minor/index.html">Minor</a>\
+      <a href="../../main/index.html" class="active">Home</a>\
+      <a href="0.html">Tarot</a>\
+      <a href="major/0.html">Major</a>\
+      <a href="minor/0.html">Minor</a>\
+      <a href="astrological/0.html">Astrological</a>\
+      <a href="crystals/0.html">Crystals</a>\
+      <a href="plants/0.html">Plants</a>\
       <a href="javascript:void(0);" class="icon" onclick="MSAtarot()">\
       <i class="fa fa-bars"></i>\
       </a>\
