@@ -7,7 +7,7 @@ document.write('\
     <div class="tarotnav" id="myTarotnav">\
       <a href="../../index.html" class="active">Home</a>\
       <a href="../0.html">Tarot</a>\
-      <a href="../major/0.html">Major</a>\
+      <a href="../major/00.html">Major</a>\
       <a href="../minor/0.html">Minor</a>\
       <a href="../astrological/0.html">Astrological</a>\
       <a href="../crystals/0.html">Crystals</a>\
