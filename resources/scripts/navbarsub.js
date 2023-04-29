@@ -11,7 +11,14 @@ document.write('\
       <a href="../index.html" class="active">Home</a>\
       <a href="../house/welcome/0.html">About</a>\
       <a href="../science/0.html">Science</a>\
-      <a href="../perfumery/0.html">Perfumery</a>\
+      <div class="dropdown">\
+        <button class="dropbtn">Perfumery</button>\
+        <div class="dropdown-content">\
+          <a href="../perfumery/0.html">Overview</a>\
+          <a href="../perfumery/1.html">Materials</a>\
+          <a href="../perfumery/2.html">Formulae</a>\
+        </div>\
+      </div>\
       <a href="../javascript:void(0);" class="icon" onclick="mobileScreenAdjust()">\
         <i class="fa fa-bars"></i>\
       </a>\

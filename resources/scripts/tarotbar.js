@@ -8,7 +8,15 @@ document.write('\
       <a href="../index.html" class="active">Home</a>\
       <a href="0.html">Tarot</a>\
       <a href="major/00.html">Major</a>\
-      <a href="minor/0.html">Minor</a>\
+       <div class="dropdown">\
+        <button class="dropbtn">Minor</button>\
+        <div class="dropdown-content">\
+          <a href="minor/wands/00.html">Wands</a>\
+          <a href="minor/cups/00.html">Cups</a>\
+          <a href="minor/pentacles/00.html">Pentacles</a>\
+          <a href="minor/swords/00.html">Swords</a>\
+         </div>\
+      </div>\
       <a href="astrological/0.html">Astrological</a>\
       <a href="crystals/0.html">Crystals</a>\
       <a href="plants/0.html">Plants</a>\
