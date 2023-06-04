@@ -6,12 +6,13 @@ document.write('\
     <link href="../../resources/css/tarot.css" type="text/css" rel="stylesheet">\
     <link href="../../resources/css/tarotbarcards.css" type="text/css" rel="stylesheet">\
     <div class="sidenav" id="myTarotnav">\
+      <a href="#names">Other Names</a>\
       <a href="#description">Description</a>\
-      <a href="#lore">Lore</a>\
       <a href="#uses">Uses</a>\
       <a href="#nutrition">Nutrition</a>\
       <a href="#medicine">Medicine</a>\
       <a href="#contraindications">Contraindications</a>\
+      <a href="#lore">Lore</a>\
       <a href="#correspondences">Correspondences</a>\
       <a href="#sources">Sources</a>\
     </div>\
