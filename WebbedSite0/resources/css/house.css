@@ -52,20 +52,12 @@ a.roomnav:visited{
   color: black;
 }
 
-a.roomnav:hover{
-  color: #0000ee;
-}
-
 a.magic{
   font-weight: bold;
 }
 
 a.magic:link {
   color: black;
-}
-
-a.magic:hover {
-  color: #0000ee;
 }
 
 a.magic:visited {
