@@ -53,6 +53,75 @@ form input:focus {
         width: 80%;
         margin: 0px auto;
 }
+
+/* BANNER: Welcome message; */
+.banner {
+        margin: 5px auto;
+        min-height: 400px;
+        color: white;
+        border-radius: 5px;
+        background-image: url('../images/banner.jpg');
+        background-size: 100% 100%;
+}
+.banner .welcome_msg {
+        width: 45%;
+        float: left;
+        padding: 20px;
+}
+.banner .welcome_msg h1 {
+        color: #B9E6F2;
+        margin: 25px 0px;
+        font-size: 2.4em;
+        font-family: 'Averia Serif Libre', cursive;
+}
+.banner .welcome_msg p {
+        color: white;
+        font-size: 1.5em;
+        line-height: 1.8em;
+    font-family: 'Noto Serif', serif;
+}
+.banner .welcome_msg p span {
+        font-size: .81em; 
+        color: #3E606F;
+}
+.banner .welcome_msg a {
+        width: 30%;
+        margin: 20px 0px;
+        padding: 12px 15px;
+        font-size: 1.2em;
+        text-decoration: none;
+}
+.banner .welcome_msg a:hover {
+        background: #374447;
+}
+
+/* BANNER: Login Form; */
+.banner .login_div {
+        width: 50%;
+        float: left;
+}
+.banner .login_div form {
+        margin-top: 40px;
+}
+.banner .login_div form h2 {
+        color: white;
+        margin-bottom: 20px;
+    font-family: 'Noto Serif', serif;
+}
+.banner .login_div form input {
+        width: 60%;
+        color: white;
+        border: 1px solid white;
+        margin: 10px auto;
+        letter-spacing: 1.3px;
+    font-family: 'Noto Serif', serif;
+}
+.banner .login_div form button {
+        display: block;
+        background: #006384;
+        margin-left: 20%;
+}
+
 /* NAVBAR */
 .navbar {
         margin: 0 auto;
