@@ -19,10 +19,10 @@ function getAllPosts()
         
         // Admin can view all posts
         // Author can only view their posts
+        $user_id = $_SESSION['user']['id'];
         if ($_SESSION['user']['role'] == "Admin") {
                 $sql = "SELECT * FROM posts";
         } elseif ($_SESSION['user']['role'] == "Author") {
-                $user_id = $_SESSION['user']['id'];
                 $sql = "SELECT * FROM posts WHERE user_id=$user_id";
         }
         $result = mysqli_query($conn, $sql);
@@ -75,6 +75,8 @@ if (isset($_GET['delete-post'])) {
 function createPost($request_values)
         {
                 global $conn, $errors, $title, $featured_image, $topic_id, $body, $published;
+                
+                $user_id = $_SESSION['user']['id'];
                 $title = esc($request_values['title']);
                 $body = htmlentities(esc($request_values['body']));
                 if (isset($request_values['topic_id'])) {
@@ -106,7 +108,7 @@ function createPost($request_values)
                 }
                 // create post if there are no errors in the form
                 if (count($errors) == 0) {
-                        $query = "INSERT INTO posts (user_id, title, slug, image, body, published, created_at, updated_at) VALUES(1, '$title', '$post_slug', '$featured_image', '$body', $published, now(), now())";
+                        $query = "INSERT INTO posts (user_id, title, slug, image, body, published, created_at, updated_at) VALUES($user_id, '$title', '$post_slug', '$featured_image', '$body', $published, now(), now())";
                         if(mysqli_query($conn, $query)){ // if post created successfully
                                 $inserted_post_id = mysqli_insert_id($conn);
                                 // create relationship between post and topic

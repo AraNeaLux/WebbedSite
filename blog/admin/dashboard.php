@@ -2,7 +2,7 @@
 <?php include(ROOT_PATH . '/admin/includes/admin_functions.php'); ?>
 <?php include(ROOT_PATH . '/admin/includes/header.php'); ?>
         <title>Admin | Dashboard</title>
-<?php if (!isAdmin()) {
+<?php if (!isAdmin() AND !isAuthor()) {
         $_SESSION['msg'] = "You must log in as an admin first";
         header('location: ../login.php');
 } ?>
