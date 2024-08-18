@@ -1,5 +1,9 @@
 <?php  include('../config.php'); ?>
 <?php  include(ROOT_PATH . '/admin/includes/admin_functions.php'); ?>
+<?php if (!isAdmin()) {
+        $_SESSION['msg'] = "You must log in as an admin first";
+        header('location: ../login.php');
+} ?>
 <?php 
     // Get all admin users from DB
     $admins = getAdminUsers();

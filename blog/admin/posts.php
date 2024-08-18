@@ -1,5 +1,9 @@
 <?php  include('../config.php'); ?>
 <?php  include(ROOT_PATH . '/admin/includes/admin_functions.php'); ?>
+<?php if (!isAuthor() AND !isAdmin()) {
+        $_SESSION['msg'] = "You must log in as an admin first";
+        header('location: ../login.php');
+} ?>
 <?php  include(ROOT_PATH . '/admin/includes/post_functions.php'); ?>
 <?php include(ROOT_PATH . '/admin/includes/header.php'); ?>
 
@@ -30,7 +34,7 @@
                                                 <th>Author</th>
                                                 <th>Views</th>
                                                 <!-- Only Admin can publish/unpublish post -->
-                                                <?php if ($_SESSION['user']['role'] == "Admin"): ?>
+                                                <?php if (isAdmin()): ?>
                                                         <th><small>Publish</small></th>
                                                 <?php endif ?>
                                                 <th><small>Edit</small></th>

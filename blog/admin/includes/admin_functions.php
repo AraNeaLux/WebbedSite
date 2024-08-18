@@ -14,6 +14,24 @@ $topic_id = 0;
 $isEditingTopic = false;
 $topic_name = "";
 
+function isAdmin()
+{
+        if (isset($_SESSION['user']) && $_SESSION['user']['role'] == 'Admin' ) {
+                return true;
+        }else{
+                return false;
+        }
+}
+
+function isAuthor()
+{
+        if (isset($_SESSION['user']) && $_SESSION['user']['role'] == 'Author' ) {
+                return true;
+        }else{
+                return false;
+        }
+}
+
 /* - - - - - - - - - - 
 -  Admin users actions
 - - - - - - - - - - -*/
@@ -154,7 +172,7 @@ function deleteAdmin($admin_id) {
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 function getAdminUsers(){
         global $conn, $roles;
-        $sql = "SELECT * FROM users WHERE role IS NOT NULL";
+        $sql = "SELECT * FROM users WHERE role='Admin' OR role='Author'";
         $result = mysqli_query($conn, $sql);
         $admin_users = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
@@ -247,43 +265,43 @@ function editNonAdmin($user_id)
 
         $sql = "SELECT * FROM users WHERE id=$user_id LIMIT 1";
         $result = mysqli_query($conn, $sql);
-        $non_admin = mysqli_fetch_assoc($result);
+        $user = mysqli_fetch_assoc($result);
 
         // set form values ($username and $email) on the form to be updated
-        $username = $non_admin['username'];
-        $email = $non_admin['email'];
+        $username = $user['username'];
+        $email = $user['email'];
 }
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
 * - Receives admin request from form and updates in database
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 function updateNonAdmin($request_values){
-        global $conn, $errors, $role, $username, $isEditingUser, $user_id, $email;
-        // get id of the non-admin to be updated
-        $user_id = $request_values['user_id'];
-        // set edit state to false
-        $isEditingUser = false;
+    global $conn, $errors, $role, $username, $isEditingUser, $user_id, $email;
+    // get id of the non-admin to be updated
+    $user_id = $request_values['user_id'];
+    // set edit state to false
+    $isEditingUser = false;
 
 
-        $username = esc($request_values['username']);
-        $email = esc($request_values['email']);
-        $password = esc($request_values['password']);
-        $passwordConfirmation = esc($request_values['passwordConfirmation']);
-        if(isset($request_values['role'])){
-                $role = $request_values['role'];
-        }
-        // register user if there are no errors in the form
-        if (count($errors) == 0) {
-                //encrypt the password (security purposes)
-                $password = md5($password);
+    $username = esc($request_values['username']);
+    $email = esc($request_values['email']);
+    $password = esc($request_values['password']);
+    $passwordConfirmation = esc($request_values['passwordConfirmation']);
+    if(isset($request_values['role'])){
+            $role = $request_values['role'];
+    }
+    // register user if there are no errors in the form
+    if (count($errors) == 0) {
+            //encrypt the password (security purposes)
+            $password = md5($password);
 
-                $query = "UPDATE users SET username='$username', email='$email', role='$role', password='$password' WHERE id=$user_id";
-                mysqli_query($conn, $query);
+            $query = "UPDATE users SET username='$username', email='$email', role='$role', password='$password' WHERE id=$user_id";
+            mysqli_query($conn, $query);
 
-                $_SESSION['message'] = "Non-admin user updated successfully";
-                header('location: users.php');
-                exit(0);
-        }
+            $_SESSION['message'] = "Non-admin user updated successfully";
+            header('location: users.php');
+            exit(0);
+    }
 }
 // delete non-admin user 
 function deleteNonAdmin($user_id) {

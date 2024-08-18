@@ -1,5 +1,9 @@
 <?php  include('../config.php'); ?>
 <?php  include(ROOT_PATH . '/admin/includes/admin_functions.php'); ?>
+<?php if (!isAdmin()) {
+        $_SESSION['msg'] = "You must log in as an admin first";
+        header('location: ../login.php');
+} ?>
 <?php 
         // Get all non-admin users from DB
         $users = getNonAdminUsers();
@@ -41,9 +45,9 @@
 
                 <!-- if editing user, display the update button instead of create button -->
                 <?php if ($isEditingUser === true): ?> 
-                    <button type="submit" class="btn" name="update_nonadmin">UPDATE</button>
+                    <button type="submit" class="btn" name="update_user">UPDATE</button>
                 <?php else: ?>
-                    <button type="submit" class="btn" name="create_nonadmin">Save User</button>
+                    <button type="submit" class="btn" name="create_user">Save User</button>
                 <?php endif ?>
             </form>
         </div>
@@ -75,12 +79,12 @@
                                 <td><?php echo $user['role']; ?></td>
                                 <td>
                                     <a class="fa fa-pencil btn edit"
-                                        href="users.php?edit-nonadmin=<?php echo $user['id'] ?>">
+                                        href="users.php?edit-user=<?php echo $user['id'] ?>">
                                     </a>
                                 </td>
                                 <td>
                                     <a class="fa fa-trash btn delete" 
-                                        href="users.php?delete-nonadmin=<?php echo $user['id'] ?>">
+                                        href="users.php?delete-user=<?php echo $user['id'] ?>">
                                     </a>
                                 </td>
                             </tr>

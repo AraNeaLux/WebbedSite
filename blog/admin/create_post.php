@@ -1,5 +1,9 @@
 <?php  include('../config.php'); ?>
 <?php  include(ROOT_PATH . '/admin/includes/admin_functions.php'); ?>
+<?php if (!isAuthor() AND !isAdmin()) {
+        $_SESSION['msg'] = "You must log in as an admin first";
+        header('location: ../login.php');
+} ?>
 <?php  include(ROOT_PATH . '/admin/includes/post_functions.php'); ?>
 <?php include(ROOT_PATH . '/admin/includes/header.php'); ?>
 <!-- Get all topics -->
@@ -40,7 +44,7 @@
                                 </select>
                                 
                                 <!-- Only admin users can view publish input field -->
-                                <?php if ($_SESSION['user']['role'] == "Admin"): ?>
+                                <?php if (isAdmin()): ?>
                                         <!-- display checkbox according to whether post has been published or not -->
                                         <?php if ($published == true): ?>
                                                 <label for="publish">

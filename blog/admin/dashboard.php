@@ -1,7 +1,11 @@
 <?php  include('../config.php'); ?>
-        <?php include(ROOT_PATH . '/admin/includes/admin_functions.php'); ?>
-        <?php include(ROOT_PATH . '/admin/includes/header.php'); ?>
+<?php include(ROOT_PATH . '/admin/includes/admin_functions.php'); ?>
+<?php include(ROOT_PATH . '/admin/includes/header.php'); ?>
         <title>Admin | Dashboard</title>
+<?php if (!isAdmin()) {
+        $_SESSION['msg'] = "You must log in as an admin first";
+        header('location: ../login.php');
+} ?>
 </head>
 <body>
         <div class="header">
