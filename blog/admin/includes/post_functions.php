@@ -144,6 +144,7 @@ function createPost($request_values)
                 global $conn, $errors, $post_id, $title, $featured_image, $topic_id, $body, $published;
 
                 $title = esc($request_values['title']);
+                $featured_image = esc($request_values['image']);
                 $body = esc($request_values['body']);
                 $post_id = esc($request_values['post_id']);
                 if (isset($request_values['topic_id'])) {

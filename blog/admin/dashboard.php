@@ -39,7 +39,9 @@
                 </div>
                 <br><br><br>
                 <div class="buttons">
+                    <?php if (isAdmin()): ?>
                         <a href="users.php">Add Users</a>
+                    <?php endif ?>
                         <a href="posts.php">Add Posts</a>
                 </div>
         </div>
