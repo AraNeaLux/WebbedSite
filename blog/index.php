@@ -1,6 +1,7 @@
 <?php require_once('config.php') ?>
 <?php require_once( ROOT_PATH . '/includes/public_functions.php') ?>
-<?php require_once( ROOT_PATH . '/includes/registration_login.php') ?><!-- Retrieve all posts from database  -->
+<?php require_once( ROOT_PATH . '/includes/registration_login.php') ?>
+<!-- Retrieve all posts from database  -->
 <?php $posts = getPublishedPosts(); ?>
 <?php require_once(ROOT_PATH . '/includes/header.php') ?>
     <title>LifeBlog | Home </title>
@@ -8,6 +9,7 @@
 <body>
     <!-- container - wraps whole page -->
     <div class="container">
+<?php echo $_SERVER['REQUEST_URI']; ?>
         <!-- navbar -->
         <?php include(ROOT_PATH . '/includes/navbar.php') ?>
         <?php include(ROOT_PATH . '/includes/banner.php') ?>

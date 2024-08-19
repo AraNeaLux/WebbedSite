@@ -5,7 +5,7 @@
         <span><a href="logout.php">logout</a></span>
     </div>
 
-<?php }else{ ?>
+<?php }else if (str_ends_with($_SERVER['REQUEST_URI'],'index.php')){ ?>
     <div class="banner">
     <div class="welcome_msg">
         <h1>Today's Inspiration</h1>
@@ -26,4 +26,10 @@
         </form>
     </div>
 </div>
+<?php } else { ?>
+    <div class="log_in_info">
+        <span><a href="register.php">register</a></span>
+        <span> or </span>
+        <span><a href="login.php">login</a></span>
+    </div>
 <?php } ?>
