@@ -69,6 +69,19 @@ if (isset($_GET['delete-post'])) {
         deletePost($post_id);
 }
 
+// if user clicks the publish post button
+if (isset($_GET['publish']) || isset($_GET['unpublish'])) {
+    $message = '';
+    if (isset($_GET['publish'])) {
+        $message = "Post published successfully";
+        $post_id = $_GET['publish'];
+    } else if (isset($_GET['unpublish'])) {
+        $message = "Post successfully unpublished";
+        $post_id = $_GET['unpublish'];
+    }
+    togglePublishPost($post_id, $message);
+}
+
 /* - - - - - - - - - - 
 -  Post functions
 - - - - - - - - - - -*/
@@ -186,39 +199,29 @@ function createPost($request_values)
                         exit(0);
                 }
         }
-        // delete blog post
-        function deletePost($post_id)
-        {
-                global $conn;
-                $sql = "DELETE FROM posts WHERE id=$post_id";
-                if (mysqli_query($conn, $sql)) {
-                        $_SESSION['message'] = "Post successfully deleted";
-                        header("location: posts.php");
-                        exit(0);
-                }
-        }
-// if user clicks the publish post button
-if (isset($_GET['publish']) || isset($_GET['unpublish'])) {
-        $message = "";
-        if (isset($_GET['publish'])) {
-                $message = "Post published successfully";
-                $post_id = $_GET['publish'];
-        } else if (isset($_GET['unpublish'])) {
-                $message = "Post successfully unpublished";
-                $post_id = $_GET['unpublish'];
-        }
-        togglePublishPost($post_id, $message);
-}
+
 // delete blog post
+function deletePost($post_id)
+{
+    global $conn;
+        $sql = "DELETE FROM posts WHERE id=$post_id";
+        if (mysqli_query($conn, $sql)) {
+            $_SESSION['message'] = "Post successfully deleted";
+            header("location: posts.php");
+            exit(0);
+    }
+}
+
+
+// toggle if post is published
 function togglePublishPost($post_id, $message)
 {
         global $conn;
-        $sql = "UPDATE posts SET published=!published WHERE id=$post_id";
-        
+        $sql = "UPDATE posts SET published=ABS(published-1) WHERE id=$post_id"; 
         if (mysqli_query($conn, $sql)) {
-                $_SESSION['message'] = $message;
-                header("location: posts.php");
-                exit(0);
+            $_SESSION['message'] = $message;
+            header("location: posts.php");
+            exit(0);
         }
 }
 ?>
