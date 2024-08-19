@@ -9,7 +9,6 @@
 <body>
     <!-- container - wraps whole page -->
     <div class="container">
-<?php echo $_SERVER['REQUEST_URI']; ?>
         <!-- navbar -->
         <?php include(ROOT_PATH . '/includes/navbar.php') ?>
         <?php include(ROOT_PATH . '/includes/banner.php') ?>

@@ -11,9 +11,9 @@
 
 
 <!-- (A) SEARCH FORM -->
-<form method="post" action="<?php echo BASE_URL . 'search.php'; ?>">
-    <input type="text" name="search" placeholder="Search..." required>
-    <button type="submit" class="btn" name="enter_search">Search</button>
+<form method="get" action="<?php echo BASE_URL . 'search.php'; ?>">
+    <input type="text" name="query" placeholder="Search..." required>
+    <input type="submit" value="Search">
 </form>
 
 </div>
