@@ -6,6 +6,8 @@ $isEditingUser = false;
 $username = "";
 $role = "";
 $email = "";
+$email_verified = 0;
+$approved = 0;
 // general variables
 $errors = [];
 
@@ -319,11 +321,198 @@ function deleteNonAdmin($user_id) {
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 function getNonAdminUsers(){
         global $conn, $roles;
-        $sql = "SELECT * FROM users WHERE role='Viewer' OR role='Commentor' OR role IS NULL";
+        $sql = "SELECT * FROM users WHERE role='Viewer' OR role='Commentor'";
         $result = mysqli_query($conn, $sql);
         $non_admin_users = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
         return $non_admin_users;
+}
+
+
+// if user clicks the approve user button
+if (isset($_GET['approve']) || isset($_GET['unapprove'])) {
+    $message = '';
+    if (isset($_GET['approve'])) {
+        $message = "User approved successfully";
+        $user_id = $_GET['approve'];
+    } else if (isset($_GET['unapprove'])) {
+        $message = "User successfully unapproved";
+        $user_id = $_GET['unapprove'];
+    }
+    toggleApproveUser($user_id, $message);
+}
+
+// toggle if user is approved
+function toggleApproveUser($user_id, $message)
+{
+        global $conn;
+        $sql = "UPDATE users SET approved=ABS(approved-1) WHERE id=$user_id"; 
+        if (mysqli_query($conn, $sql)) {
+            $_SESSION['message'] = $message;
+            header("location: pending_users.php");
+            exit(0);
+        }
+}
+
+/* - - - - - - - - - - 
+-  Pending users actions
+- - - - - - - - - - -*/
+// if user clicks the create Pending button
+if (isset($_POST['create_pending_user'])) {
+        createPending($_POST);
+}
+// if user clicks the Edit Pending button
+if (isset($_GET['edit-pending_user'])) {
+        $isEditingUser = true;
+        $user_id = $_GET['edit-pending_user'];
+        editPending($user_id);
+}
+// if user clicks the update Pending button
+if (isset($_POST['update_pending_user'])) {
+        updatePending($_POST);
+}
+// if user clicks the Delete Pending button
+if (isset($_GET['delete-pending_user'])) {
+        $user_id = $_GET['delete-pending_user'];
+        deletePending($user_id);
+}
+
+/* - - - - - - - - - - - -
+-  Non-admin users functions
+- - - - - - - - - - - - -*/
+/* * * * * * * * * * * * * * * * * * * * * * *
+* - Receives new non-admin data from form
+* - Create new non-admin user
+* - Returns all non-admin users with their roles 
+* * * * * * * * * * * * * * * * * * * * * * */
+function createPending($request_values){
+        global $conn, $errors, $role, $username, $email, $email_verified, $approved;
+        $username = esc($request_values['username']);
+        $email = esc($request_values['email']);
+        $password = esc($request_values['password']);
+        $passwordConfirmation = esc($request_values['passwordConfirmation']);
+
+        if(isset($request_values['role'])){
+                $role = esc($request_values['role']);
+        }
+        if (isset($request_values['email_verified'])) {
+            $email_verified = esc($request_values['email_verified']);
+        }
+        if (isset($request_values['approved'])) {
+            $approved = esc($request_values['approved']);
+        }
+        // form validation: ensure that the form is correctly filled
+        if (empty($username)) { array_push($errors, "Uhmm...We gonna need the username"); }
+        if (empty($email)) { array_push($errors, "Oops.. Email is missing"); }
+        if (empty($role)) { array_push($errors, "Role is required for non-admin users");}
+        if (empty($password)) { array_push($errors, "uh-oh you forgot the password"); }
+        if ($password != $passwordConfirmation) { array_push($errors, "The two passwords do not match"); }
+        // Ensure that no user is registered twice. 
+        // the email and usernames should be unique
+        $user_check_query = "SELECT * FROM users WHERE username='$username' 
+                                                        OR email='$email' LIMIT 1";
+        $result = mysqli_query($conn, $user_check_query);
+        $user = mysqli_fetch_assoc($result);
+        if ($user) { // if user exists
+                if ($user['username'] === $username) {
+                  array_push($errors, "Username already exists");
+                }
+
+                if ($user['email'] === $email) {
+                  array_push($errors, "Email already exists");
+                }
+        }
+        // register user if there are no errors in the form
+        if (count($errors) == 0) {
+                $password = md5($password);//encrypt the password before saving in the database
+                $query = "INSERT INTO users (username, email, role, password, email_verified, approved, created_at, updated_at) 
+                                  VALUES('$username', '$email', '$role', '$password', '$email_verified', '$approved', now(), now())";
+                mysqli_query($conn, $query);
+
+                $_SESSION['message'] = "Non-admin user created successfully";
+                header('location: users.php');
+                exit(0);
+        }
+}
+
+/* * * * * * * * * * * * * * * * * * * * *
+* - Takes non-admin id as parameter
+* - Fetches the non-admin from database
+* - sets non-admin fields on form for editing
+* * * * * * * * * * * * * * * * * * * * * */
+function editPending($user_id)
+{
+        global $conn, $username, $role, $isEditingUser, $user_id, $email, $email_verified, $approved;
+
+        $sql = "SELECT * FROM users WHERE id=$user_id LIMIT 1";
+        $result = mysqli_query($conn, $sql);
+        $user = mysqli_fetch_assoc($result);
+
+        // set form values ($username and $email) on the form to be updated
+        $username = $user['username'];
+        $email = $user['email'];
+        $role = $user['role'];
+        $email_verified = $user['email_verified'];
+        $approved = $user['approved'];
+}
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+* - Receives admin request from form and updates in database
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+function updatePending($request_values){
+    global $conn, $errors, $role, $username, $isEditingUser, $user_id, $email, $email_verified, $approved;
+    // get id of the non-admin to be updated
+    $user_id = $request_values['user_id'];
+    // set edit state to false
+    $isEditingUser = false;
+
+
+    $username = esc($request_values['username']);
+    $email = esc($request_values['email']);
+    $password = esc($request_values['password']);
+    $passwordConfirmation = esc($request_values['passwordConfirmation']);
+    if(isset($request_values['role'])){
+            $role = $request_values['role'];
+    }
+    if (isset($request_values['email_verified'])) {
+        $email_verified = esc($request_values['email_verified']);
+    }
+    if (isset($request_values['approved'])) {
+        $approved = esc($request_values['approved']);
+    }
+    // register user if there are no errors in the form
+    if (count($errors) == 0) {
+            //encrypt the password (security purposes)
+            $password = md5($password);
+
+            $query = "UPDATE users SET username='$username', email='$email', role='$role', password='$password', email_verified='$email_verified', approved='$approved', WHERE id=$user_id";
+            mysqli_query($conn, $query);
+
+            $_SESSION['message'] = "Non-admin user updated successfully";
+            header('location: users.php');
+            exit(0);
+    }
+}
+// delete non-admin user 
+function deletePending($user_id) {
+        global $conn;
+        $sql = "DELETE FROM users WHERE id=$user_id";
+        if (mysqli_query($conn, $sql)) {
+                $_SESSION['message'] = "User successfully deleted";
+                header("location: users.php");
+                exit(0);
+        }
+}
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+* - Returns all pending users
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+function getPendingUsers(){
+        global $conn, $roles;
+        $sql = "SELECT * FROM users WHERE email_verified=0 OR approved=0";
+        $result = mysqli_query($conn, $sql);
+        $pending_users = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+        return $pending_users;
 }
 
 /* - - - - - - - - - - 
