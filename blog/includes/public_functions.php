@@ -46,8 +46,10 @@ function getPublishedPostsByTopic($topic_id) {
 
         $final_posts = array();
         foreach ($posts as $post) {
+            if ($post['published']){
                 $post['topic'] = getPostTopic($post['id']); 
                 array_push($final_posts, $post);
+            }
         }
         return $final_posts;
 }
