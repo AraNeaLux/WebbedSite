@@ -188,7 +188,7 @@ function createPost($request_values)
                     if (isset($topic_id)) {
                         $inserted_post_id = mysqli_insert_id($conn);
                         // create relationship between post and topic
-                        $sql = "UPDATE post_topic SET topic_id=$topic_id WHERE post_id=$inserted_post_id";
+                        $sql = "UPDATE post_topic SET topic_id=$topic_id WHERE post_id=$post_id";
                         mysqli_query($conn, $sql);
                         $_SESSION['message'] = "Post created successfully";
                         header('location: posts.php');
