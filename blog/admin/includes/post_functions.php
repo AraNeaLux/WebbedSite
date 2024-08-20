@@ -161,10 +161,21 @@ function createPost($request_values)
             $title = esc($request_values['title']);
             $body = esc($request_values['body']);
             $post_id = esc($request_values['post_id']);
+            
+            // get info about post from database
             $sql = "SELECT * FROM posts WHERE id=$post_id LIMIT 1";
             $result = mysqli_query($conn, $sql);
             $post = mysqli_fetch_assoc($result);
             $featured_image = $post['image'];
+            $published = $post['published'];
+
+            // get info about post topic from database
+            $sql = "SELECT * FROM post_topic WHERE post_id=$post_id LIMIT 1";
+            $result = mysqli_query($conn, $sql);
+            $post_topic = mysqli_fetch_assoc($result);
+            $topic_id = $post_topic['topic_id'];
+
+
             if (isset($request_values['topic_id'])) {
                     $topic_id = esc($request_values['topic_id']);
             }
@@ -177,13 +188,15 @@ function createPost($request_values)
             $featured_image_input = "";
             // Get image name
             $featured_image_input = $_FILES['featured_image']['name'];
-            // image file directory
-            $target = "../static/images/" . basename($featured_image_input);
-            if (!move_uploaded_file($_FILES['featured_image']['tmp_name'], $target)) {
-                array_push($errors, "Failed to upload image. Please check file settings for your server");
-            }
+            if (strlen($featured_image_input)>0){
+                // image file directory
+                $target = "../static/images/" . basename($featured_image_input);
+                if (!move_uploaded_file($_FILES['featured_image']['tmp_name'], $target)) {
+                    array_push($errors, "Failed to upload image. Please check file settings for your server");
+                }
 
-            if ($featured_image_input != $featured_image) {$featured_image = $featured_image_input;}
+                if ($featured_image_input != $featured_image) {$featured_image = $featured_image_input;}
+            }    
             // register topic if there are no errors in the form
             if (count($errors) == 0) {
                 $query = "UPDATE posts SET title='$title', slug='$post_slug', views=0, image='$featured_image', body='$body', published=$published, updated_at=now() WHERE id=$post_id";
