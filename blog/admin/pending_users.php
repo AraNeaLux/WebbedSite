@@ -38,20 +38,20 @@
                 <input type="password" name="passwordConfirmation" placeholder="Password confirmation">
                 <select name="role">
                     <option value="" selected disabled>Assign role</option>
-                    <?php foreach ($roles as $key => $role): ?>
-                        <option value="<?php echo $role; ?>"><?php echo $role; ?></option>
+                    <?php foreach ($roles as $key => $role_option): ?>
+                        <option value="<?php echo $role_option; ?>"><?php echo $role_option; ?></option>
                     <?php endforeach ?>
                 </select>
 
                 <!-- display checkbox according to whether user has been approved or not -->
                 <?php if ($approved == true): ?>
                         <label for="approved">
-                                Approve
+                                Approved
                                 <input type="checkbox" value="1" name="approved" checked="checked">&nbsp;
                         </label>
                 <?php else: ?>
                         <label for="approved">
-                                Approve
+                                Approved
                                 <input type="checkbox" value="1" name="approved">&nbsp;
                         </label>
                 <?php endif ?>
@@ -85,7 +85,7 @@
             <?php include(ROOT_PATH . '/includes/messages.php') ?>
 
             <?php if (empty($pending_users)): ?>
-                <h1>No non-admins in the database.</h1>
+                <h1>No pending users in the database.</h1>
             <?php else: ?>
                 <table class="table">
                     <thead>

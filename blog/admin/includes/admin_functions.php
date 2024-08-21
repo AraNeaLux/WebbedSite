@@ -284,7 +284,6 @@ function updateNonAdmin($request_values){
     // set edit state to false
     $isEditingUser = false;
 
-
     $username = esc($request_values['username']);
     $email = esc($request_values['email']);
     $password = esc($request_values['password']);
@@ -430,7 +429,7 @@ function createPending($request_values){
                 mysqli_query($conn, $query);
 
                 $_SESSION['message'] = "Non-admin user created successfully";
-                header('location: users.php');
+                header('location: pending_users.php');
                 exit(0);
         }
 }
@@ -471,6 +470,15 @@ function updatePending($request_values){
     $email = esc($request_values['email']);
     $password = esc($request_values['password']);
     $passwordConfirmation = esc($request_values['passwordConfirmation']);
+
+    // get info about post from database
+    $sql = "SELECT * FROM users WHERE id=$user_id LIMIT 1";
+    $result = mysqli_query($conn, $sql);
+    $user = mysqli_fetch_assoc($result);
+    $role = $user['role'];
+    $email_verified = $user['email_verified'];
+    $approved = $user['approved'];
+    
     if(isset($request_values['role'])){
             $role = $request_values['role'];
     }
@@ -480,16 +488,17 @@ function updatePending($request_values){
     if (isset($request_values['approved'])) {
         $approved = esc($request_values['approved']);
     }
+
     // register user if there are no errors in the form
     if (count($errors) == 0) {
             //encrypt the password (security purposes)
             $password = md5($password);
 
-            $query = "UPDATE users SET username='$username', email='$email', role='$role', password='$password', email_verified='$email_verified', approved='$approved', WHERE id=$user_id";
+            $query = "UPDATE users SET username='$username', email='$email', role='$role', password='$password', email_verified='$email_verified', approved='$approved' WHERE id=$user_id";
             mysqli_query($conn, $query);
 
-            $_SESSION['message'] = "Non-admin user updated successfully";
-            header('location: users.php');
+            $_SESSION['message'] = "Pending user updated successfully";
+            header('location: pending_users.php');
             exit(0);
     }
 }
@@ -499,7 +508,7 @@ function deletePending($user_id) {
         $sql = "DELETE FROM users WHERE id=$user_id";
         if (mysqli_query($conn, $sql)) {
                 $_SESSION['message'] = "User successfully deleted";
-                header("location: users.php");
+                header("location: pending_users.php");
                 exit(0);
         }
 }
