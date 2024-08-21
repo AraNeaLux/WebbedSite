@@ -11,6 +11,7 @@
         $email = esc($_POST['email']);
         $password_1 = esc($_POST['password_1']);
         $password_2 = esc($_POST['password_2']);
+        $token = bin2hex(random_bytes(50));
 
         // form validation: ensure that the form is correctly filled
         if (empty($username)) {  array_push($errors, "Uhmm...We gonna need your username"); }
@@ -37,29 +38,47 @@
         // register user if there are no errors in the form
         if (count($errors) == 0) {
             $password = md5($password_1);//encrypt the password before saving in the database
-            $query = "INSERT INTO users (username, email, role, password, created_at, updated_at) 
+            $query = "INSERT INTO users (username, email, role, password, token, created_at, updated_at) 
+                VALUES('$username', '$email', 'Viewer', '$password', $token, now(), now())";
 
-                             VALUES('$username', '$email', 'Commentor', '$password', now(), now())";
-            mysqli_query($conn, $query);
+            $stmt = $conn->prepare($query);
+            $stmt->bind_param('ssss', $username, $email, 'Viewer', $password, $token, now(), now());
+            $result = $stmt->execute();
 
-            // get id of created user
-            $reg_user_id = mysqli_insert_id($conn); 
+            //mysqli_query($conn, $query);
 
-            // put logged in user into session array
-            $_SESSION['user'] = getUserById($reg_user_id);
+            if ($result) {
+                $user_id = $stmt->insert_id;
+                $stmt->close();
 
-            // if user is admin, redirect to admin area
-            if ( in_array($_SESSION['user']['role'], ["Admin", "Author"])) {
-                $_SESSION['message'] = "You are now logged in";
-                // redirect to admin area
-                header('location: ' . BASE_URL . 'admin/dashboard.php');
-                exit(0);
+                // TO DO: send verification email to user
+                sendVerificationEmail($email, $token);
+
+                // get id of created user
+                $reg_user_id = mysqli_insert_id($conn); 
+
+                // put logged in user into session array
+                $_SESSION['user'] = getUserById($reg_user_id);
+
+                // if user is admin, redirect to admin area
+                if ( in_array($_SESSION['user']['role'], ["Admin", "Author"])) {
+                    $_SESSION['message'] = "You are now logged in";
+                    // redirect to admin area
+                    header('location: ' . BASE_URL . 'admin/dashboard.php');
+                    exit(0);
+                } else {
+                    $_SESSION['message'] = "You are now logged in";
+                    // redirect to public area
+                    header('location: index.php');                          
+                    exit(0);
+                }
+                $_SESSION['message'] = 'You are logged in!';
+                $_SESSION['type'] = 'alert-success';
+                header('location: index.php');
             } else {
-                $_SESSION['message'] = "You are now logged in";
-                // redirect to public area
-                header('location: index.php');                          
-                exit(0);
-            }
+                $_SESSION['error_msg'] = "Database error: Could not register user";
+            } 
+
         }
     }
 

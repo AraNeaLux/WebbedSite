@@ -7,6 +7,7 @@ $title = "";
 $post_slug = "";
 $body = "";
 $featured_image = "";
+$alt = "";
 $post_topic = "";
 
 /* - - - - - - - - - - 
@@ -87,10 +88,11 @@ if (isset($_GET['publish']) || isset($_GET['unpublish'])) {
 - - - - - - - - - - -*/
 function createPost($request_values)
         {
-                global $conn, $errors, $title, $featured_image, $topic_id, $body, $published;
+                global $conn, $errors, $title, $featured_image, $alt, $topic_id, $body, $published;
                 
                 $user_id = $_SESSION['user']['id'];
                 $title = esc($request_values['title']);
+                $alt = esc($request_values['alt']);
                 $body = htmlentities(esc($request_values['body']));
                 if (isset($request_values['topic_id'])) {
                         $topic_id = esc($request_values['topic_id']);
@@ -106,13 +108,17 @@ function createPost($request_values)
                 if (empty($topic_id)) { array_push($errors, "Post topic is required"); }
                 // Get image name
                 $featured_image = $_FILES['featured_image']['name'];
-                if (empty($featured_image)) {$featured_image = "Screenshot 2024-08-18 160923.png"; }
+                if (empty($featured_image)) {
+                    $featured_image = "Screenshot 2024-08-18 160923.png";
+                    $alt = "White Calcite Minecraft blocks with a small doorway in the center, showing the dark inside of a green crystal geode. ";
+                }
                 else{ 
                     // image file directory
                     $target = "../static/images/" . basename($featured_image);
                     if (!move_uploaded_file($_FILES['featured_image']['tmp_name'], $target)) {
                         array_push($errors, "Failed to upload image. Please check file settings for your server");
                     }
+                    if (empty($alt)) { array_push($errors, "Alt text is required"); }
                 }
                 // Ensure that no post is saved twice. 
                 $post_check_query = "SELECT * FROM posts WHERE slug='$post_slug' LIMIT 1";
@@ -123,7 +129,8 @@ function createPost($request_values)
                 }
                 // create post if there are no errors in the form
                 if (count($errors) == 0) {
-                        $query = "INSERT INTO posts (user_id, title, slug, image, body, published, created_at, updated_at) VALUES($user_id, '$title', '$post_slug', '$featured_image', '$body', $published, now(), now())";
+                    $query = "INSERT INTO posts (user_id, title, slug, image, alt, body, published, created_at, updated_at) 
+                        VALUES($user_id, '$title', '$post_slug', '$featured_image', '$alt', '$body', $published, now(), now())";
                         if(mysqli_query($conn, $query)){ // if post created successfully
                                 $inserted_post_id = mysqli_insert_id($conn);
                                 // create relationship between post and topic
@@ -156,9 +163,10 @@ function createPost($request_values)
 
         function updatePost($request_values)
         {
-            global $conn, $errors, $post_id, $title, $featured_image, $topic_id, $body, $published;
+            global $conn, $errors, $post_id, $title, $featured_image, $alt, $topic_id, $body, $published;
 
             $title = esc($request_values['title']);
+            $alt = esc($request_values['alt']);
             $body = esc($request_values['body']);
             $post_id = esc($request_values['post_id']);
             
@@ -199,7 +207,7 @@ function createPost($request_values)
             }    
             // register topic if there are no errors in the form
             if (count($errors) == 0) {
-                $query = "UPDATE posts SET title='$title', slug='$post_slug', views=0, image='$featured_image', body='$body', published=$published, updated_at=now() WHERE id=$post_id";
+                $query = "UPDATE posts SET title='$title', slug='$post_slug', views=0, image='$featured_image', alt='$alt', body='$body', published=$published, updated_at=now() WHERE id=$post_id";
                 // attach topic to post on post_topic table
                 if(mysqli_query($conn, $query)){ // if post created successfully
                     if (isset($topic_id)) {

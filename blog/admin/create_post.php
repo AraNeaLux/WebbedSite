@@ -33,6 +33,7 @@
                 <input type="text" name="title" value="<?php echo $title; ?>" placeholder="Title">
                 <label style="float: left; margin: 5px auto 5px;">Featured image</label>
                 <input type="file" accept="image/*" name="featured_image" >
+                <input type="text" name="alt" value="<?php echo $alt; ?>" placeholder="Image alt text">
                 <textarea name="body" id="body" cols="30" rows="10"><?php echo $body; ?></textarea>
                 <select name="topic_id">
                 <option value="" disabled selected hidden>Choose Topic</option>
