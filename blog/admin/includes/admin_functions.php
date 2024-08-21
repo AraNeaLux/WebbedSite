@@ -6,10 +6,11 @@ $isEditingUser = false;
 $username = "";
 $role = "";
 $email = "";
-$email_verified = 0;
+$email_verified = 1;
 $approved = 0;
 // general variables
 $errors = [];
+$user_type = "";
 
 // Topics variables
 $topic_id = 0;
@@ -32,6 +33,31 @@ function isAuthor()
         }else{
                 return false;
         }
+}
+
+function getUsersOfType(){
+
+    if (isset($_GET['type'])){
+        $user_type = $_GET['type'];
+        if ($user_type == "admin"){
+            $users_of_type = GetAdminUsers();
+            return $users_of_type;
+        }
+        if ($user_type == "nonadmin"){
+            $users_of_type = GetNonAdminUsers();
+            return $users_of_type;
+        }
+        if ($user_type == "pending"){
+            $users_of_type = GetPendingUsers();
+            return $users_of_type;
+        }
+    } else {
+        global $conn;
+        $sql = "SELECT * FROM users";
+        $result = mysqli_query($conn, $sql);
+        $users_of_type = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        return $users_of_type;
+    }
 }
 
 /* - - - - - - - - - - 

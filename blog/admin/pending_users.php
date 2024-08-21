@@ -57,6 +57,7 @@
                 <?php endif ?>
 
                 <!-- display checkbox according to whether user has verified email or not -->
+                <!-- 
                 <?php if ($email_verified == true): ?>
                         <label for="email_verified">
                                 Verified email
@@ -68,6 +69,7 @@
                                 <input type="checkbox" value="1" name="email_verified">&nbsp;
                         </label>
                 <?php endif ?>
+                -->
 
                 <!-- if editing user, display the update button instead of create button -->
                 <?php if ($isEditingUser === true): ?> 

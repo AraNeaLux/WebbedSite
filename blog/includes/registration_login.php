@@ -52,7 +52,7 @@
                 $stmt->close();
 
                 // TO DO: send verification email to user
-                sendVerificationEmail($email, $token);
+                //sendVerificationEmail($email, $token);
 
                 // get id of created user
                 $reg_user_id = mysqli_insert_id($conn); 
