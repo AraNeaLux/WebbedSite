@@ -24,6 +24,7 @@
                         <h2 class="post-title">Sorry... This post has not been published</h2>
                 <?php else: ?>
                         <h2 class="post-title"><?php echo $post['title']; ?></h2>
+                        <p>Author: <?php echo getPostAuthor($post['id']) ?></p>
                         <div class="post-body-div">
                                 <?php echo html_entity_decode($post['body']); ?>
                         </div>

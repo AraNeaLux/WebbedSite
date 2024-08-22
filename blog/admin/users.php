@@ -95,11 +95,11 @@
                                 <td>
                                     <?php if ($user['approved'] == true): ?>
                                         <a class="fa fa-check btn unpublish"
-                                            href="pending_users.php?unapprove=<?php echo $user['id'] ?>">
+                                            href="users.php?unapprove=<?php echo $user['id'] ?>">
                                         </a>
                                     <?php elseif ($user['approved'] == false): ?>
                                         <a class="fa fa-times btn publish"
-                                            href="pending_users.php?approve=<?php echo $user['id'] ?>">
+                                            href="users.php?approve=<?php echo $user['id'] ?>">
                                         </a>
                                     <?php endif ?>
                                 </td>

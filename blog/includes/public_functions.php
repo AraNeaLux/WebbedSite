@@ -17,6 +17,7 @@ function getPublishedPosts() {
         }
         return $final_posts;
 }
+
 /* * * * * * * * * * * * * * *
 * Receives a post id and
 * Returns topic of the post
@@ -28,6 +29,27 @@ function getPostTopic($post_id){
         $result = mysqli_query($conn, $sql);
         $topic = mysqli_fetch_assoc($result);
         return $topic;
+}
+
+/* * * * * * * * * * * * * * *
+* Receives a post id and
+* Returns author of the post
+* * * * * * * * * * * * * * */
+function getPostAuthor($post_id){
+    global $conn;
+    $sql = "SELECT * FROM posts WHERE id=$post_id";
+    $result = mysqli_query($conn, $sql);
+    $author_id = mysqli_fetch_assoc($result)['user_id'];
+    if ($author_id) {
+        // return username
+        $sql = "SELECT username FROM users WHERE id=$author_id";
+        $result = mysqli_query($conn, $sql);
+        $author = mysqli_fetch_assoc($result)['username'];
+        return $author;
+        } else {
+            return null;
+        }
+
 }
 
 /* * * * * * * * * * * * * * * *
