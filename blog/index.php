@@ -4,16 +4,14 @@
 <!-- Retrieve all posts from database  -->
 <?php $posts = getPublishedPosts(); ?>
 <?php require_once(ROOT_PATH . '/includes/header.php') ?>
-    <title>LifeBlog | Home </title>
+    <title>Webbed Site | Home </title>
 </head>
 <body>
-    <!-- container - wraps whole page -->
-    <div class="container">
         <!-- navbar -->
         <?php include(ROOT_PATH . '/includes/navbar.php') ?>
         <?php include(ROOT_PATH . '/includes/banner.php') ?>
         <!-- Page content -->
-        <div class="content">
+        <main id="maincontent">
             <h2 class="content-title">Recent Articles</h2>
             <hr>
 <?php foreach ($posts as $post): ?>
@@ -37,7 +35,5 @@
         </a>
     </div>
 <?php endforeach ?>
-        </div>
-        <!-- // Page content -->
         <!-- footer -->
         <?php include(ROOT_PATH . '/includes/footer.php') ?>
