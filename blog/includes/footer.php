@@ -1,6 +1,6 @@
-            <div class="footer">
-                <p>MyViewers &copy; <?php echo date('Y'); ?></p>
-            </div>
+            <footer>
+                <?php echo date('Y'); ?>
+            </footer>
         </div>
         <!-- // container -->
     </body>

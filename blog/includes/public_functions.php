@@ -24,8 +24,7 @@ function getPublishedPosts() {
 * * * * * * * * * * * * * * */
 function getPostTopic($post_id){
         global $conn;
-        $sql = "SELECT * FROM topics WHERE id=
-                        (SELECT topic_id FROM post_topic WHERE post_id=$post_id) LIMIT 1";
+        $sql = "SELECT * FROM topics WHERE id=(SELECT topic_id FROM post_topic WHERE post_id=$post_id) LIMIT 1";
         $result = mysqli_query($conn, $sql);
         $topic = mysqli_fetch_assoc($result);
         return $topic;
@@ -50,6 +49,85 @@ function getPostAuthor($post_id){
             return null;
         }
 
+}
+
+/* * * * * * * * * * * * * * *
+* Returns published posts by date published asc
+* * * * * * * * * * * * * * */
+function getPublishedPostsOldest() {
+        // use global $conn object in function
+        global $conn;
+        $sql = "SELECT * FROM posts WHERE published=true ORDER BY created_at ASC";
+        $result = mysqli_query($conn, $sql);
+        // fetch all posts as an associative array called $posts
+        $posts = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+        $final_posts = array();
+        foreach ($posts as $post) {
+                $post['topic'] = getPostTopic($post['id']); 
+                array_push($final_posts, $post);
+        }
+        return $final_posts;
+}
+
+/* * * * * * * * * * * * * * *
+* Returns published posts by date updated desc
+* * * * * * * * * * * * * * */
+function getPublishedPostsNewest5() {
+        // use global $conn object in function
+        global $conn;
+        $sql = "SELECT * FROM posts WHERE published=true ORDER BY created_at DESC";
+        $result = mysqli_query($conn, $sql);
+        // fetch all posts as an associative array called $posts
+        $posts = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+        $final_posts = array();
+        for ($x = 0; $x <=4; $x+=1) {
+            if ($x<sizeof($posts)){
+                $post = $posts[$x];
+                $post['topic'] = getPostTopic($post['id']); 
+                array_push($final_posts, $post);
+            }
+        }
+        return $final_posts;
+}
+
+/* * * * * * * * * * * * * * *
+* Returns published posts by date updated desc
+* * * * * * * * * * * * * * */
+function getPublishedPostsNewest() {
+        // use global $conn object in function
+        global $conn;
+        $sql = "SELECT * FROM posts WHERE published=true ORDER BY created_at DESC";
+        $result = mysqli_query($conn, $sql);
+        // fetch all posts as an associative array called $posts
+        $posts = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+        $final_posts = array();
+        foreach ($posts as $post) {
+                $post['topic'] = getPostTopic($post['id']); 
+                array_push($final_posts, $post);
+        }
+        return $final_posts;
+}
+
+/* * * * * * * * * * * * * * *
+* Returns published posts by date updated desc
+* * * * * * * * * * * * * * */
+function getPublishedPostsUpdated() {
+        // use global $conn object in function
+        global $conn;
+        $sql = "SELECT * FROM posts WHERE published=true ORDER BY updated_at DESC";
+        $result = mysqli_query($conn, $sql);
+        // fetch all posts as an associative array called $posts
+        $posts = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+        $final_posts = array();
+        foreach ($posts as $post) {
+                $post['topic'] = getPostTopic($post['id']); 
+                array_push($final_posts, $post);
+        }
+        return $final_posts;
 }
 
 /* * * * * * * * * * * * * * * *

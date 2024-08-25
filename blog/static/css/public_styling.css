@@ -1,77 +1,67 @@
+.variables {
+    --lightest_green: #E1F3D4;
+    --lighter_green: #CDECB6;
+    --light_green: #B1E28D;
+    --green: #53961f;
+    --dark_green: #2E5016;
+    --darker_green: #1A3209;
+
+    --lightest_purp: #E5E0FA;
+    --lighter_purp: #C8BEF4;
+    --light_purp: #B5A8F0;
+    --purp: #9B89EB;
+    --dark_purp: #1F115F;
+
+    --cyan: #61B399;
+    --dark_cyan: #326756;
+}
+
 /****************
 *** DEFAULTS
 *****************/
 * { 
-    margin: 12px; 
-    padding: 21px;
-    background-color:#E1F3D4;
+    background-color:var(--lightest_purp);
     font-family:"Brush Script MT", cursive;
-    color: #335819;
+    color: var(--dark_purp);
 }
 
-html { height: 100%; box-sizing: border-box; }
-
-/* NAVBAR */
-nav {
-    margin: 0 auto;
-    overflow: hidden;
-    font-family:"Brush Script MT", cursive;
-    background-color:#95D468;
-    border-radius: 0px 0px 6px 6px;
-}
-
-nav ul {
-    list-style-type: none;
+html { 
+    height: 100%; 
+    box-sizing: border-box; 
     margin: 0;
     padding: 0;
-    overflow: hidden;
-    float: right;
-}
-nav ul li {
-    float: left;
-}
-nav ul li a {
-    display: block;
-    color: #335819;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-}
-nav ul li a:hover {
-    color: #1A3209;
-    background-color: #95D468;
-}
-
-nav ul li form {
-    padding: 0px;
-} 
-
-nav ul li input {
-    padding: 6px;
-}
-
-nav ul li input:hover { 
-    color: #1A3209;
-    background-color: #95D468;
-}
-
-nav h1 {
-        color: #335819;
-        font-size: 2em;
-        font-weight: 100;
 }
 
 body {
-  position: relative;
-  padding-bottom: 6rem;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 /* HEADINGS DEFAULT */
-h1, h2, h3, h4, h5, h6 { color: #444;}
-a { text-decoration: none; }
+h1, h2, h3, h4, h5, h6 { 
+    color: var(--dark_purp);
+    background-color: var(--lightest_purp);
+    text-decoration: none;
+}
 ul, ol { margin-left: 40px; }
 hr { margin: 10px 0px; opacity: .25; }
+
+a {
+    color: var(--dark_cyan);
+    background-color: var(--lightest_purp);
+    border-style: solid;
+    border-color: var(--dark_purp);
+    text-decoration: underline;
+    padding: 3px 7px;
+    margin: 7px;
+}
+
+a:hover {
+    color: var(--cyan);
+    text-decoration: underline;
+}
 
 /* NOTIFICATION MESSAGES */
 .message {

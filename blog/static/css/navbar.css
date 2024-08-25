@@ -1,0 +1,93 @@
+:root {
+    --lightest_green: #E1F3D4;
+    --lighter_green: #CDECB6;
+    --light_green: #B1E28D;
+    --green: #53961f;
+    --dark_green: #2E5016;
+    --darker_green: #1A3209;
+
+    --lightest_purp: #E5E0FA;
+    --lighter_purp: #C8BEF4;
+    --light_purp: #B5A8F0;
+    --purp: #9B89EB;
+    --dark_purp: #1F115F;
+
+    --cyan: #61B399;
+    --dark_cyan: #326756;
+}
+
+/* NAVBAR */
+nav {
+    overflow: hidden;
+    font-size: 21px;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0px;
+    padding: 0;
+    overflow: hidden;
+    background-color:var(--green);
+}
+nav ul li {
+    float: left;
+    background-color:var(--green);
+}
+nav ul li a {
+    display: block;
+    color: var(--dark_green);
+    text-align: center;
+    padding: 14px 16px;
+    margin: 0;
+    text-decoration: none;
+    background-color:var(--lighter_green);
+    border-style: solid;
+    border-color: var(--green);
+    border-width: 7px 4px;
+}
+nav ul li a:hover {
+    color: var(--darker_green);
+    background-color: var(--lightest_green);
+    text-decoration: none;
+}
+
+nav ul li form {
+    float: right;
+    padding: 14px 16px;
+    background-color: var(--lighter_green);
+    border-style: solid;
+    border-color: var(--green);
+    border-width: 7px 4px;
+} 
+
+nav ul li label {
+    background-color: var(--lighter_green);
+}
+
+nav ul li input { 
+    color: var(--dark_green);
+    background-color: var(--lighter_purp);
+}
+
+nav ul li input:hover { 
+    color: var(--dark_green);
+    background-color: var(--lightest_purp);
+}
+
+h1 a {
+    background-color: var(--lightest_purp);
+    text-decoration: none;
+    color: var(--dark_purp);
+    border: none;
+}
+
+h1 a:hover {
+    background-color: var(--lightest_purp);
+    text-decoration: none;
+    color: var(--dark_green);
+}
+
+@media screen and (max-width: 600px) {
+    nav a:not(:first-child) {display:none;}
+    nav a
+}
