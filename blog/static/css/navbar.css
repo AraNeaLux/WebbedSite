@@ -18,7 +18,6 @@
 
 /* NAVBAR */
 nav {
-    overflow: hidden;
     font-size: 21px;
 }
 
@@ -30,10 +29,10 @@ nav ul {
     background-color:var(--green);
 }
 nav ul li {
-    float: left;
     background-color:var(--green);
 }
 nav ul li a {
+    float: left;
     display: block;
     color: var(--dark_green);
     text-align: center;
@@ -87,7 +86,29 @@ h1 a:hover {
     color: var(--dark_green);
 }
 
+footer {
+    clear: none;
+}
+
 @media screen and (max-width: 600px) {
-    nav a:not(:first-child) {display:none;}
-    nav a
+    nav {
+        padding:0;
+    }
+
+    nav ul{
+        padding:0;
+    }
+
+    nav ul li{
+        width: 100%;
+        position: relative;
+        float: left;
+    }
+
+    nav ul li a {
+        width:100%;
+        margin:0;
+        
+    }
+
 }

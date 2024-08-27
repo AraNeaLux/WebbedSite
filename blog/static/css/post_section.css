@@ -24,33 +24,37 @@ main h2 {
 }
 
 .post{
-    border: 12px solid var(--purp);
+    padding: 12px;
     position: relative;
-    width: 307px;
-    height: 345px;
-    background-color:var(--lighter_green);
+    width: 300px;
+    aspect-ratio: 3/3.25;
+    background-color:var(--purp);
     display: inline-block;
     margin: 12px;
+    float: left;
 }
 
 .post_image{
-    border: 10px solid;
-    border-color: var(--light_purp);
-    height: 230px;
-    width: 288px;
+    padding: 10px;
+    background-color: var(--light_purp);
+    width: 280px;
+    margin-bottom: 12px;
+    aspect-ratio: 4/3;
+    float: left;
 }
 
 h3 {
     background-color: var(--lighter_green);
-    padding: 0px 7px;
-    position: absolute;
-    top: 240px;
-
+    padding: 7px 10px;
+    width: 280px;
+    height: 70px;
+    clear:left;
 }
 
 h3 a {
     background-color: var(--lighter_green);
     border: none;
+    height: 40px;
     margin: 0px;
     padding: 0;
     color: var(--dark_green);
@@ -62,8 +66,8 @@ h3 a:hover {
 
 .post time{
     position: absolute;
-    right: 10px;
-    bottom: 7px;
+    right: 5%;
+    bottom: 4%;
     color: var(--dark_green);
     background-color:var(--lighter_green);
 }
@@ -77,3 +81,38 @@ h3 a:hover {
     border-color: var(--dark_green);
     background-color: var(--lighter_green);
 }
+/*
+@media only screen and (max-width: 700px){
+
+    .post{
+    position: relative;
+    width: 90%;
+    padding:0;
+    aspect-ratio: 3/3.25;
+    background-color:var(--purp);
+    display: inline-block;
+    margin: 3%;
+    box-sizing: border-box;
+    }
+
+.post_image{
+    width: 96%;
+    padding: 2%;
+    background-color: var(--purp);
+}
+    
+.post h3 {
+    background-color: var(--lighter_green);
+    padding: 2%;
+    width: 96%;
+    height: 23%;
+    position: absolute;
+    top: 68%;
+
+}
+
+.post h3 a {
+    padding:0;
+}
+
+}*/
