@@ -1,4 +1,39 @@
 <?php 
+function isAdmin()
+{
+        if (isset($_SESSION['user']) && $_SESSION['user']['role'] == 'Admin' ) {
+                return true;
+        }else{
+                return false;
+        }
+}
+
+function isAuthor()
+{
+        if (isset($_SESSION['user']) && $_SESSION['user']['role'] == 'Author' ) {
+                return true;
+        }else{
+                return false;
+        }
+}
+
+function isCommentor()
+{
+        if (isset($_SESSION['user']) && $_SESSION['user']['role'] == 'Commentor' ) {
+                return true;
+        }else{
+                return false;
+        }
+}
+
+function isViewer()
+{
+        if (isset($_SESSION['user']) && $_SESSION['user']['role'] == 'Viewer' ) {
+                return true;
+        }else{
+                return false;
+        }
+}
 /* * * * * * * * * * * * * * *
 * Returns all published posts
 * * * * * * * * * * * * * * */
@@ -49,6 +84,15 @@ function getPostAuthor($post_id){
             return null;
         }
 
+}
+
+function getPostsByAuthor($user_id) {
+    global $conn;
+    $sql = "SELECT * FROM posts WHERE user_id=$user_id AND published=1 ORDER BY created_at DESC";
+    $result = mysqli_query($conn, $sql);
+    $posts = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+    return $posts;
 }
 
 /* * * * * * * * * * * * * * *

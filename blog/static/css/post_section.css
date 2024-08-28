@@ -43,7 +43,7 @@ main h2 {
     float: left;
 }
 
-h3 {
+.post h3 {
     background-color: var(--lighter_green);
     padding: 7px 10px;
     width: 280px;
@@ -51,7 +51,7 @@ h3 {
     clear:left;
 }
 
-h3 a {
+.post h3 a {
     background-color: var(--lighter_green);
     border: none;
     height: 40px;

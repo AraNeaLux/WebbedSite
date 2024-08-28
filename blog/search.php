@@ -19,7 +19,7 @@
                 <?php else: ?>
                     <h2 class="content-title">Search Results for "<?php echo getSearchTerm(); ?>"</h2>
                     <?php foreach ($posts as $post): ?>
-                        <div class="post" aria-label="post" style="margin-left: 10px;">
+                        <div class="result" aria-label="result" style="margin-left: 10px;">
                         <h3>
                         <a href="single_post.php?post-slug=<?php echo $post['slug']; ?>">
                             <?php echo $post['title'] ?></a>
