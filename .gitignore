@@ -4,4 +4,8 @@
 # Ignore ~ files
 *~
 
+<<<<<<< HEAD
+=======
+# Ignore config file
+>>>>>>> f095f1090051ebb58caf47eea10b22525a62b39f
 config.php
