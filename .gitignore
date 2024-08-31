@@ -3,3 +3,6 @@
 
 # Ignore ~ files
 *~
+
+# Ignore config file
+config.php
