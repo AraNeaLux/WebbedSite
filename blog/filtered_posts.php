@@ -1,6 +1,7 @@
 <?php include('config.php'); ?>
 <?php include(ROOT_PATH . '/includes/public_functions.php'); ?>
 <?php include(ROOT_PATH . '/includes/header.php'); ?>
+    <link rel="stylesheet" href="static/css/post_section.css">
 <?php 
         // Get posts under a particular topic
         if (isset($_GET['topic'])) {

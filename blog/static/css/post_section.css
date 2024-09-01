@@ -79,40 +79,43 @@ h3 a:hover {
     padding: 3px 7px;
     border: 3px solid;
     border-color: var(--dark_green);
+    background-color: #000000;
     background-color: var(--lighter_green);
 }
-/*
-@media only screen and (max-width: 700px){
+
+@media only screen and ((max-width: 700px) or (max-width: 7in)){
 
     .post{
     position: relative;
     width: 90%;
-    padding:0;
-    aspect-ratio: 3/3.25;
+    padding:12px;
     background-color:var(--purp);
     display: inline-block;
-    margin: 3%;
+    margin: 12px;
+    aspect-ratio: auto;
     box-sizing: border-box;
     }
 
 .post_image{
-    width: 96%;
-    padding: 2%;
-    background-color: var(--purp);
+    box-sizing: border-box;
+    width: 100%;
+    padding: 12px;
+    aspect-ratio: 4:3;
+    background-color: var(--light_purp);
 }
     
 .post h3 {
+    box-sizing: border-box;
     background-color: var(--lighter_green);
     padding: 2%;
-    width: 96%;
-    height: 23%;
-    position: absolute;
-    top: 68%;
-
+    margin:0px;
+    width: 100%;
 }
 
 .post h3 a {
     padding:0;
 }
 
-}*/
+.post time{
+    display: none;
+}
