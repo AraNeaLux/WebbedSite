@@ -16,12 +16,19 @@
     --dark_cyan: #326756;
 }
 
+@font-face {
+	font-family: Pointfree;
+	/*src: url("https://db.onlinewebfonts.com/t/051fa90e59ae538e992db3ce05765e91.woff");
+*/
+	src: url("Pointfree.woff");
+}
+
 /****************
 *** DEFAULTS
 *****************/
 * { 
     background-color:var(--lightest_purp);
-    font-family:"Brush Script MT", cursive;
+    font-family: Pointfree;
     color: var(--dark_purp);
 }
 
